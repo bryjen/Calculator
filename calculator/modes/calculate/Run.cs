@@ -27,9 +27,17 @@ namespace calculator.modes.calculate
                     continue;
                 }
                 
+                if (userInput.Equals("")) continue;
+
                 //  by process of elimination, the userInput is an expression
 
-                if (!Expression.IsAValidExpression(userInput)) continue;
+                if (!Expression.IsAValidExpression(userInput))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid expression");
+                    Console.ResetColor();
+                    continue;
+                }
                 var value = Expression.SolveExpression(userInput);
                 
                 if (value.Equals("")) continue;

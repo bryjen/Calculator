@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -10,107 +11,149 @@ namespace calculator.modes.calculate
     public static class Expression
     {
 
-        private static string[] validOperators = new string[]
-        {
-            "+", "-"
-        };
-        
-        public static bool IsALoneVariable(string[] expressionArray)
-        {
-            return expressionArray.Length == 1 && !IsANumber(expressionArray[0]);
-        }
-        
         public static bool IsAValidExpression(string expression)
         {
             /*
                 Parameters of a valid Expression:
               -   All variables in the expression must be already defined/assigned
               -   The expression must end with a non-operator
+              -   There must be an equal number or left and right side parentheses, and they must close properly
+              
              
                 Additional Remarks:
               -   The function will return true if the expression is a lone variable
              ex: "variableName", where variableName was previously assinged a value;
-             
-                
-                    First the function splits and trims the expression into its terms
-                ex: "123 + abc" => ["123", "abc"].
-                    If the last part of the expression ends in either a '+' or a '+', then the array would end with an
-                empty string
-                ex: "abc + 123+" or "abc + 123-" =>  ["abc", "123", ""]
-                If the last term is an empty string, then the expression is invalid (Returns false)
-                
-                    Then the function checks if the expression is a lone variable - ex: "variableName". This is a
-                special case as the function does not need to check if the variable is defined or not.
-                
-                    After so, the function loops through all terms and checks if any variables are undefined. If so,
-                the expression is invalid (Returns false)
              */
+            expression = Simplify(expression);
+            var expressionArray = GetExpressionInArrayForm(expression);
+
+            //if the expression is a lone variable, return true (whether it is defined or not)
+            if (expressionArray.Length == 1 && !Regex.IsMatch(expression, ".*\\d.*")
+                && !expression.Trim().Contains(" ")) return true;
+
+            if (IsANumber(expression, true)) return true;
+
+            if (expressionArray.Where(token => !IsANumber(token, false) && !IsAValidOperator(token) && !token.Equals(""))
+                .Any(token => Variables.GetValueOfVariable(token) is null))
+                return false;
+
+            if (!Regex.IsMatch(expressionArray[^1], "[()]") && !IsANumber(expressionArray[^1], false)) return false;
+
+            //if operators are stacked, ex. "3+/* 2"
+            if (Regex.IsMatch(expression, ".*[+\\-*/]{2}.*")) return false;
+
+            //returns false to cases like "243 31 32 1"
+            if (IsANumber(new Regex(" +").Replace(expression, ""), true)) return false;
+
+            //if the expression is just a number, and there are signs that trail/end it, return false. ex: "1-"
+            if (Regex.IsMatch(expression.Trim(), "^\\d+[+\\-*/]+$")) return false;
             
-            var terms = expression.Split(new char[] {'+', '-'});
-            terms = terms.Select(email => email.Trim()).ToArray();
+            Stack<string> parentheses = new Stack<string>();
+            foreach (var token in expressionArray)
+            {
+                switch (token)
+                {
+                    case "(":
+                        parentheses.Push(token);
+                        continue;
+                    case ")" when !parentheses.TryPeek(out _):
+                        return false;
+                    case ")":
+                        parentheses.Pop();
+                        break;
+                }
+            }
+
+            return parentheses.Count == 0;
             
-            if (terms[^1].Equals("")) return false;
-            
-            if (terms.Length == 1 && !Regex.IsMatch(expression, ".*\\d.*")) return true;
-            
-            return terms.Where(term => !term.Equals(""))
-                .Where(term => !IsANumber(term))
-                .All(term => Variables.GetValueOfVariable(term) is not null);
+            //TODO Add ways to check expressions inside parentheses in the future to further improve accuracy
         }
+
 
         public static string SolveExpression(string expression)
         {
-            /*
-                How the function "solves" the equation:
-                
-                    The function first simplifies the equation. For example, "9 +++ 10 -- 8" becomes "9 + 10 + *" 
-                (check Expression.Simplify() for more details).
-                    Then the function checks if the expression is a lone variable - ex. "variableName", where variableName
-                is defined -. If so, if the lone variable has a value, it will return the root value (a number), otherwise, 
-                an error will be thrown
-                
-                    After that, all the variables in the expression are solved (recursively). For example, lets say a = 5,
-                and b = a + 5. The expression b + 20 will be solved as follows:
-                
-                b (10)   <=  a (5)   <= 5
-                +            +       
-                20           5
-                =            =
-                30           10
-             */
-            
+            //[CASE] if the entire expression is a single number
+            var temp = new Regex(" +").Replace(expression, " ");
+            if (IsANumber(temp.Trim().Replace(" ", ""), true)) return expression;
+
             expression = Simplify(expression);
-            
             var expressionArray = GetExpressionInArrayForm(expression);
-            
-            if (IsALoneVariable(expressionArray))return GetVariableValue(expression);
-            
-            for (int i = 0; i < expressionArray.Length; i++)
+
+            //[CASE] if the entire expression is a lone variable
+            if (expressionArray.Length == 1 && !Regex.IsMatch(expressionArray[0], "^[0-9]*$"))
             {
-                if (!IsAVariable(expressionArray[i])) continue;
-                expressionArray[i] = SolveExpression(expressionArray[i]);
-                i = -1;
+                var value = GetVariableValue(expression);
+                
+                
+                return value;
+            }
+            
+            //substitute all the values of variables (if any)
+            expressionArray = Substitute(expressionArray);
+
+            expressionArray = InfixToPostfix(expressionArray);
+
+            Stack<double> operandStack = new Stack<double>();
+            foreach (var token in expressionArray)
+            {
+                if (IsANumber(token, false))
+                {
+                    operandStack.Push(double.Parse(token));
+                    continue;
+                }
+                //if its not a number, it is an operator
+                var number2 = operandStack.Pop();
+                var number1 = operandStack.Pop();
+                operandStack.Push(Compute(number1, number2, token));
             }
 
-            double result = 0;
-            result = double.Parse(expressionArray[0]);
-            for (int i = 1; i < expressionArray.Length; i+= 2)
-            {
-                try
-                {
-                    if (!IsAValidOOperator(expressionArray[i])) throw new Exception();  //to goto the catch block
-                    result = Compute(result, Double.Parse(expressionArray[i + 1]), expressionArray[i]);
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine($"Invalid format! : \"{expression}\"");
-                    return "";
-                }
-            }
+            if (operandStack.Count == 1) return operandStack.Pop().ToString();
             
-            return result.ToString(CultureInfo.InvariantCulture);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("SYNTAX ERROR!");
+            Console.ResetColor();
+            return "";
         }
 
+        
+        #region Expression Manipulation
+
+        private static string[] GetExpressionInArrayForm(string expression)
+        {
+
+            var tempCharArray = new Regex(" +").Replace(expression, "")
+                .ToCharArray();
+            var expressionLetterArray = new string[tempCharArray.Length];
+            for (var i = 0; i < tempCharArray.Length; i++)
+            {
+                expressionLetterArray[i] = tempCharArray[i].ToString();
+            }
+            
+            List<string> terms = new List<string>();
+            StringBuilder termBuilder = new StringBuilder();
+            foreach (var letter in expressionLetterArray)
+            {
+                if (IsAValidOperator(letter))
+                {
+                    //this means that the previous and current terms are operators "... + ( ..."
+                    if (!termBuilder.ToString().Equals("")) 
+                        terms.Add(termBuilder.ToString());
+                    terms.Add(letter);
+
+                    termBuilder.Clear();
+                    continue;
+                }
+
+                termBuilder.Append(letter);
+            }
+            terms.Add(termBuilder.ToString());
+            terms.RemoveAll(term => term.Equals(""));
+            
+            return terms.ToArray();
+        }
+        
+        //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //
+        
         private static string Simplify(string expression)
         {
             //turns '--' into '+'
@@ -125,57 +168,113 @@ namespace calculator.modes.calculate
             return expression;
         }
         
-        private static string[] GetExpressionInArrayForm(string expression)
-        { 
-            /*      Works almost the same way as string.ToCharArray(), but numbers and variables are grouped and the
-                array is of string type, not char. For example:
-                "abc + 123", where abc is defined => ["abc", "+", "123"]
-            */
-            
-            
-            //gets the expression into a string array of each of its individual letters/symbols
-            var tempCharArray = new Regex(" +").Replace(expression, "")
-                .ToCharArray();
-            var expressionLetterArray = new string[tempCharArray.Length];
-            for (var i = 0; i < tempCharArray.Length; i++)
+        //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //  //
+
+        private static string[] Substitute(string[] expression)
+        {
+            for (var i = 0; i < expression.Length; i++)
             {
-                expressionLetterArray[i] = tempCharArray[i].ToString();
+                if (!IsANumber(expression[i], true) && !IsAValidOperator(expression[i]))  //i.e. if it is a variable
+                {
+                    expression[i] = GetVariableValue(expression[i]);
+                    i = -1;
+                }
             }
 
-            //groups non-operators together 
-            //ex: [a, b, c, +, 1, 2, 3] => [abc, +, 123]
-            List<string> terms = new List<string>();
-            StringBuilder termBuilder = new StringBuilder();
-            foreach (var letter in expressionLetterArray)
-            {
-                if (IsAValidOOperator(letter))
-                {
-                    terms.Add(termBuilder.ToString().Equals("") ? "0" : termBuilder.ToString());
-                    terms.Add(letter);
+            return expression;
+        }
+        
+        #endregion
 
-                    termBuilder.Clear();
+        #region Infix to Postfix Conversion
+        
+        private static int GetOperatorPriorityNumber(string token)
+        {
+            switch (token)
+            {
+                case "+":
+                case "-":
+                    return 1;
+                case "*":
+                case "/":
+                    return 2;
+                case "^":
+                    return 3;
+                default:
+                    throw new Exception($"An invalid token was attempted to be parsed! {token}");
+            }
+        }
+
+        // ReSharper disable once CognitiveComplexity
+        private static string[] InfixToPostfix(string[] infixExpression)
+        {
+            Stack<string> opstack = new Stack<string>();
+            List<string> postfixExpression = new List<string>();
+
+            foreach (var token in infixExpression)
+            {
+                //if the token is a number, add it to the list
+                if (IsANumber(token, false))
+                {
+                    postfixExpression.Add(token);
                     continue;
                 }
 
-                termBuilder.Append(letter);
-            }
-            terms.Add(termBuilder.ToString());
-            
-            return  terms.ToArray();
-        }
+                //if the token is a left parenthesis, add it to the opstack
+                if (token.Equals("("))
+                {
+                    opstack.Push(token);
+                    continue;
+                }
 
-        private static double Compute(double number1, double number2, string operand)
-        {
-            switch (operand)
-            {
-                case "+" :
-                    return number1 + number2;
-                case "-" :
-                    return number1 - number2;
-                default:
-                    throw new Exception("Error at Expresssion.Compute() - An unknown operand was parsed");
+                //if the token is a right parenthesis, pop the opstack until the corresponding left parenthesis is reached
+                if (token.Equals(")"))
+                {
+                    do
+                    {
+                        
+                        var value = opstack.Pop();
+                        if (value.Equals("(")) break;
+                        postfixExpression.Add(value);
+                    } while (true);
+                    continue;
+                }
+
+                /*
+                 If the token is an operator, check if there are any operators in the stack that have a higher or equal
+                 priority level (defined by the GetOperatorPriorityNumber() function). If so append them to the list.
+                 After doing so, push the operator into the list
+                 */
+                if (IsAValidOperator(token))
+                {
+                    var priority = GetOperatorPriorityNumber(token);
+                    do
+                    {
+                        if (opstack.Count == 0 ||opstack.Peek().Equals("(") || opstack.Peek().Equals(")"))
+                        {
+                            opstack.Push(token);
+                            break;
+                        }
+                        
+                        if (GetOperatorPriorityNumber(opstack.Peek()) >= priority)
+                        {
+                            postfixExpression.Add(opstack.Pop());
+                            continue;
+                        }
+                        opstack.Push(token);
+                        
+                        break;
+                    } while (true);
+                }
             }
+
+            postfixExpression.AddRange(opstack);    //adds the remaining operators into the postfix expression
+
+            return postfixExpression.ToArray();
         }
+        
+        #endregion
+
 
         private static string GetVariableValue(string variableName)
         {
@@ -191,38 +290,53 @@ namespace calculator.modes.calculate
             
             if (value is not null)
             {
-                if (IsANumber(value)) return value;
+                if (IsANumber(value, true)) return value;
 
-                if (IsALoneVariable(validOperators)) return GetVariableValue(value);
+                var expressionArray = GetExpressionInArrayForm(value);
+                if (expressionArray.Length == 1 &&
+                    !Regex.IsMatch(expressionArray[0], "^[0-9]*$"))
+                    return GetVariableValue(value);
 
                 return SolveExpression(value);
-
-                //return IsAVariable(value) ? GetVariableValue(value) : value;
             }
             
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Unknown variable!");
             Console.ResetColor();
             return "";
-        }
+        }   //TODO REFACTOR
 
-        
-
-        
-
-        private static bool IsANumber(string term)
+        private static double Compute(double number1, double number2, string @operator)
         {
-            return double.TryParse(term, out _);
+            switch (@operator)
+            {
+                case "+":
+                    return number1 + number2;
+                case "-":
+                    return number1 - number2;
+                case "*":
+                    return number1 * number2;
+                case "/":
+                    return number1 / number2;
+                case "^":
+                    return Math.Pow(number1, number2);
+                default:
+                    throw new Exception("invalid @operator was attempted to be parsed at Expression.Compute()");
+            }
         }
 
-        private static bool IsAValidOOperator(string term)
+        private static bool IsAValidOperator(string term)
         {
-            return validOperators.Any(term.Equals);
+            var validOperators = new string[] {"+", "-", "*", "/", "^", "(", ")"};
+
+            return validOperators.Any(@operator => @operator.Equals(term));
         }
         
-        private static bool IsAVariable(string term)
+        //TODO CLARIFY WHAT "SIGN" DOES
+        private static bool IsANumber(string token, bool signSensitive)
         {
-            return !IsANumber(term) && !IsAValidOOperator(term);
+            return Regex.IsMatch(token, signSensitive ? "^[+-]?[0-9]*$" : "^[0-9]*$");
         }
+        
     }
 }

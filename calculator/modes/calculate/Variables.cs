@@ -84,11 +84,18 @@ namespace calculator.modes.calculate
 
             if (!Expression.IsAValidExpression(value)) return false;
             
-            if (Expression.IsALoneVariable(value.Split(new char[]{'+', '-'})) &&
+            if (IsALoneVariable(value.Split(new char[]{'+', '-'})) &&
                 !variables.ContainsKey(value)) return false;
             
 
             return true;
+        }
+
+        private static bool IsALoneVariable(string[] expressionArray)
+        {
+            return expressionArray.Length == 1 &&
+                   !Regex.IsMatch(expressionArray[0], "^[0-9]*$");
+                    //i.e. is not a number
         }
     }
 }
