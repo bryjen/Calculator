@@ -1,0 +1,40 @@
+Stuff to add:
+  - Main mode (where the calculator runs normally) and test/debug mode. test/debug mode can be enabled through cli program arguments and runs unit tests on all modes of the program (unless specific modes are specified also in the cli program arguments).
+    The expected and the result should be displayed in a pleasing manner -
+  For example:
+  [calc] passed:3 failed:2
+  test1:passed
+  test2:passed
+  test3:failed
+  test4:passed
+  test5:failed
+  
+  [equations]passed:1 failed:2
+  test1:passed
+  test2:failed
+  test3:failed
+  
+  >test2
+  expected: ...
+  got:      ...
+  
+  eqform:   ... (from expression to array form)
+  //put em in a nice format yknow + add some details like the equation in array/list form (from ToArray method), etc.
+  
+  - Use Spectre.Console to output data instead of standard Console.WriteLine() and Console.Write() methods yknow. Get used to its methods, styling, and other features
+  
+  - Try to add fractional output. Like for example, 8/6 would be able to both return the expression (4/3) and the double 1.3333333333...; A custom class would probably be needed to make that happen with numerator and denominator as double fields.
+  The user can print the other version by typing something like "="
+  
+  - Add the "ans" variable, just like in your calculator, that stores the value of the previous answer. The implementation of the previous function (changing the output format) kinda requires this fucntionality
+  
+  - Add basic trignometric identities (sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan) and basic logarithms (log(base, number), ln(number))
+  
+  - Basic differentiation and integration support (like the most basic of basics, like y = 5x^2 => dy/dx = 10x). Use a new mode named "equations"
+  
+  Stuff to improve on:
+  
+    - Improve expression to expression array conversion
+    (add necessary multiplaication and subtraction thingies ex. a(-b+5c) => a * (0 - b + 5 * c))
+    
+  
