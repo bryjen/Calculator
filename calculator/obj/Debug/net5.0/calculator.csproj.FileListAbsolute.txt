@@ -1,3 +1,8 @@
+C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.csprojAssemblyReference.cache
+C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.AssemblyInfoInputs.cache
+C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.AssemblyInfo.cs
+C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.csproj.CoreCompileInputs.cache
 C:\Users\Game\Documents\GitHub\Calculator\calculator\bin\Debug\net5.0\calculator.exe
 C:\Users\Game\Documents\GitHub\Calculator\calculator\bin\Debug\net5.0\calculator.deps.json
 C:\Users\Game\Documents\GitHub\Calculator\calculator\bin\Debug\net5.0\calculator.runtimeconfig.json
@@ -5,11 +10,11 @@ C:\Users\Game\Documents\GitHub\Calculator\calculator\bin\Debug\net5.0\calculator
 C:\Users\Game\Documents\GitHub\Calculator\calculator\bin\Debug\net5.0\calculator.dll
 C:\Users\Game\Documents\GitHub\Calculator\calculator\bin\Debug\net5.0\ref\calculator.dll
 C:\Users\Game\Documents\GitHub\Calculator\calculator\bin\Debug\net5.0\calculator.pdb
-C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.csprojAssemblyReference.cache
-C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.AssemblyInfoInputs.cache
-C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.AssemblyInfo.cs
-C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.csproj.CoreCompileInputs.cache
+C:\Users\Game\Documents\GitHub\Calculator\calculator\bin\Debug\net5.0\CommandLine.dll
+C:\Users\Game\Documents\GitHub\Calculator\calculator\bin\Debug\net5.0\nunit.framework.dll
+C:\Users\Game\Documents\GitHub\Calculator\calculator\bin\Debug\net5.0\Spectre.Console.dll
+C:\Users\Game\Documents\GitHub\Calculator\calculator\bin\Debug\net5.0\Wcwidth.dll
+C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.csproj.CopyComplete
 C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.dll
 C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\ref\calculator.dll
 C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.pdb

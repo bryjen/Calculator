@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "PReJ9UpIPVchxqwSIASg8wgegexh1fDTLzu8IzQefXJrk7c5MVpxM6doUu/u1Bc8r/VXIxgYxRpmtG4jaa2gLA==",
+  "dgSpecHash": "QJwmP06A017HUtf1qf7GkYJ9LJRd42FMv1y5Bg32VIsUNvydmG1BrltVsWIUqb6LgYCYAeGTUAL3pVHq82rRSg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Game\\Documents\\GitHub\\Calculator\\calculator\\calculator.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Game\\.nuget\\packages\\commandlineparser\\2.9.0-preview1\\commandlineparser.2.9.0-preview1.nupkg.sha512",
+    "C:\\Users\\Game\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Game\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
+    "C:\\Users\\Game\\.nuget\\packages\\nunit\\3.13.1\\nunit.3.13.1.nupkg.sha512",
+    "C:\\Users\\Game\\.nuget\\packages\\spectre.console\\0.38.1-preview.0.35\\spectre.console.0.38.1-preview.0.35.nupkg.sha512",
+    "C:\\Users\\Game\\.nuget\\packages\\wcwidth\\0.2.0\\wcwidth.0.2.0.nupkg.sha512"
+  ],
   "logs": []
 }
