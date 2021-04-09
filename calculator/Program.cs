@@ -65,6 +65,18 @@ REWORK
             5a => [5, *, a], for now, it doesn't matter if the variable is defined or not. That will be checked later
 */
 
+/*
+v1.1
+    -   Polished up the unit test interface such that the user can see whether the program passed the test or not, then see its details
+    by entering the name of the test. This includes details of expected and got results. The tests test for an expression's validity
+    (whether it was able to correctly tell if the expression is valid or not) and its answer (whether or not it was able to solve the
+    expression correctly)
+    
+    -   Added and polished methods from the pre-rework version such as CheckMethods.IsAValidOperator(string), CheckMethods.IsANumber(token),
+    ExpressionManipulation.InfixToPostfix(String[]), Expression.IsExpressionValid(), Expression.Solve()
+    Furthermore, documented these methods using XML documentation
+ */
+
 
 
 

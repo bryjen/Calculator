@@ -7,18 +7,17 @@ namespace calculator.main.calc
     {
         public static void Enter()
         {
+            var userInput = Console.ReadLine();
             var start = DateTime.Now;
-            ExpressionManipulation.GetExpressionInListForm("-3(-5a + someVariable - 400(-5 + 99a)) + -(5-2)");
+            var expression = new Expression(userInput);
             var duration = DateTime.Now - start;
-            AnsiConsole.WriteLine($"{duration.TotalMilliseconds}ms");
-        }
-        //test cases:
-        //-3(-5a + someVariable - 400(-5 + 99a))
-        //3 + 8  ((4 + 3) * 2 + 1) - 6 / (2 + 1)
+            AnsiConsole.MarkupLine($"[blue]{duration.TotalMilliseconds}ms[/]");
+            
+            AnsiConsole.WriteLine("[{0}]", string.Join(", ", expression.ExpressionList));
+            AnsiConsole.WriteLine(expression.Valid);
 
-        public static void PrintArray(string[] array)
-        {
-            AnsiConsole.WriteLine("[{0}]", string.Join(", ", array));
+            var value = expression.Solve();
+            AnsiConsole.MarkupLine(value is null ? "[red]An error has occurred in computation[/]" : $"{value}");
         }
     }
 }

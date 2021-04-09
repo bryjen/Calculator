@@ -2,74 +2,100 @@
 using System.Collections.Generic;
 using calculator.main;
 using NUnit.Framework;
+using Spectre.Console;
 using static calculator.main.Expression;
 
 namespace calculator.tests
 {
-    public interface Test
-    {
-        [Test]
-        public void Run()
-        {
-            
-        }
-    }
 
-    public class CalcTest : Test
+    public class CalcTest
     {
-        public string Name { get; private set; }
+        public string TestName { get; private set; }
         
-        public string Expression { get; private set; }
+        public Expression Expression { get; private set; }
         
-        public string[] ExpressionArray { get; private set; }
+        public bool ExpectedValidity { get; private set; }
         
-        public bool AssertValid { get; private set; }
+        public bool GotValidity { get; private set; }
         
-        public bool GotValid { get; private set; }
-        
-        public bool IsResultValid { get; private set; }
-        
-        public double? AssertResult { get; private set; }
+        public double? ExpectedResult { get; private set; }
         
         public double? GotResult { get; private set; }
         
+        public bool IsResultCorrect { get; private set; }
+        
+        public string[] TestsWhat { get; private set; }
 
-        public CalcTest(string name, string expresssion, bool assertValid, double? assertResult)
+        public CalcTest(string testName, string expression, bool expectedValidity, double? expectedResult,
+            string[] testsWhat)
         {
-            Name = name;
-            Expression = expresssion;
-            ExpressionArray = new Expression(expresssion).ExpressionList.ToArray();
-            AssertValid = assertValid;
-            AssertResult = assertResult;
-            GotResult = null;
+            TestName = testName;
+            Expression = new Expression(expression.Trim());
+            ExpectedValidity = expectedValidity;
+            ExpectedResult = expectedResult;
+            TestsWhat = testsWhat;
         }
 
         [Test]
-        public void Run()   //@Override
+        public void run()
         {
-            var expression = new Expression(Expression);
+            //Assert the validity of the expression
+            GotValidity = Expression.Valid;
+            if (GotValidity != ExpectedValidity)
+            {
+                GotResult = null;
+                if (ExpectedResult is null)
+                {
+                    IsResultCorrect = true;
+                    return;
+                }
+
+                IsResultCorrect = false;
+            }
+            
+            if (ExpectedResult is null)
+            {
+                GotResult = null;
+                IsResultCorrect = true;
+                return;
+            }
+            
+            //Assert the result of the expression, if and only if the expression is valid
             try
             {
-                Assert.AreEqual(AssertValid, expression.Valid);
-                GotValid = true;
+                GotResult = Expression.Solve();
+                Assert.AreEqual(ExpectedResult, GotResult);
+                IsResultCorrect = true;
             }
             catch (Exception)
             {
-                GotValid = false;
+                IsResultCorrect = false;
             }
+        }
 
-            if (!GotValid) return;
+        public bool IsPassed()
+        {
+            return ExpectedValidity == GotValidity && IsResultCorrect;
+        }
 
-            try
-            {
-                GotResult = expression.Solve();
-                Assert.AreEqual(AssertResult, GotResult);
-                IsResultValid = true;
-            }
-            catch (Exception)
-            {
-                IsResultValid = false;
-            }
+        public void PrintDetails()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("[Press enter to go back to the main menu]");
+            Console.ResetColor();
+            AnsiConsole.MarkupLine($">  {TestName} :{(IsPassed() ? "[green]" : "[red]")}" +
+                                   $"{(IsPassed() ? "Passed" : "Failed")}[/]:\n");
+            AnsiConsole.MarkupLine($"    Expression(string):      {Expression.InputExpression}");
+            Console.WriteLine("    Expression(string[]):\n    [{0}]", string.Join(", ", Expression.ExpressionList.ToArray()));
+            
+            AnsiConsole.MarkupLine($"\n    Expected Validity:       {ExpectedValidity}");
+            AnsiConsole.MarkupLine($"    Got Validity:            {(GotValidity == ExpectedValidity ? "[green]": "[red]")}{GotValidity}[/]");
+            
+            AnsiConsole.MarkupLine($"\n    Expected Result:         {ExpectedResult}");
+            AnsiConsole.MarkupLine($"    Got Result:              {(IsResultCorrect ? "[green]" : "[red]")}{GotResult}[/]");
+
+            Console.ReadLine();
         }
     }
 }
