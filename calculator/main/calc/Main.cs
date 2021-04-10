@@ -7,17 +7,27 @@ namespace calculator.main.calc
     {
         public static void Enter()
         {
-            var userInput = Console.ReadLine();
-            var start = DateTime.Now;
-            var expression = new Expression(userInput);
-            var duration = DateTime.Now - start;
-            AnsiConsole.MarkupLine($"[blue]{duration.TotalMilliseconds}ms[/]");
-            
-            AnsiConsole.WriteLine("[{0}]", string.Join(", ", expression.ExpressionList));
-            AnsiConsole.WriteLine(expression.Valid);
+            do
+            {
+                AnsiConsole.Write("> ");
+                var userInput = Console.ReadLine()
+                    .Trim();
 
-            var value = expression.Solve();
-            AnsiConsole.MarkupLine(value is null ? "[red]An error has occurred in computation[/]" : $"{value}");
+                //if the input is an assignment
+                if (userInput.Contains("="))
+                {
+                    Variables.Assign(userInput);
+                    continue;
+                }
+
+                var expression = new Expression(userInput);
+                if (expression.IsValid)
+                {
+                    var value = expression.Solve();
+                    if (value is null) continue;
+                    AnsiConsole.MarkupLine($"[blue]{value}[/]");
+                }
+            } while (true);
         }
     }
 }

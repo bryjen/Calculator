@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using calculator.main.calc;
 using CommandLine;
+using NUnit.Framework;
 using Spectre.Console;
 
 namespace calculator.main
@@ -13,9 +14,10 @@ namespace calculator.main
     {
         public string InputExpression { get; }
         
+        /** <value>The list form of the InputExpression - from <see cref="ExpressionManipulation.GetExpressionInListForm(string)"/></value>*/
         public List<string> ExpressionList { get; }
         
-        public bool Valid { get; }
+        public bool IsValid { get; }
 
         public Expression(string inputExpression)
         {
@@ -24,11 +26,11 @@ namespace calculator.main
             try
             {
                 ExpressionList = ExpressionManipulation.GetExpressionInListForm(inputExpression);
-                Valid = IsExpressionValid();
+                IsValid = IsExpressionValid();
             }
             catch (Exception)
             {
-                Valid = false;
+                IsValid = false;
             }
         }
         
@@ -43,7 +45,7 @@ namespace calculator.main
          */
         public double? Solve()
         {
-            if (!Valid)
+            if (!IsValid)
             {
                 AnsiConsole.MarkupLine("[red]Cannot solve expression as it is invalid![/]");
                 return null;
@@ -53,9 +55,31 @@ namespace calculator.main
             if (CheckMethods.IsANumber(InputExpression)) return double.Parse(InputExpression);
 
             //If the expression is a lone variable, output its value back
-            if (CheckMethods.IsAVariable(InputExpression)) return null; //TODO find a way to return the value of that lone variable yknow
+            if (CheckMethods.IsAVariable(InputExpression) && ExpressionList.Count == 1)
+            {
+                var value = Variables.GetValue(InputExpression);
+                if (value is not null) return value;
+                AnsiConsole.MarkupLine($"[red]The variable \"{InputExpression}\" is not initialized![/]");
+                return null;
+            }
+            
+            //Creates a copy of the list int o a string array
+            var tempExpressionList = new string[ExpressionList.Count];
+            for (var i = 0; i < ExpressionList.Count; i++)
+            {
+                tempExpressionList[i] = ExpressionList[i];
+            }
 
-            var postfixExpression = ExpressionManipulation.InfixToPostfix(ExpressionList.ToArray());
+            //substitutes the values of the variables in the expression. At this point, ALL variables are defined (checked).
+            //A copy is used so the expression can mamintain its variables, so the value of a variable can change if the 
+            //vaues in its variables (if it has any) change.
+            for (var i = 0; i < tempExpressionList.Length; i++)
+            {
+                if (!CheckMethods.IsAVariable(tempExpressionList[i])) continue;
+                tempExpressionList[i] = Variables.GetValue(tempExpressionList[i]).ToString();
+            }
+
+            var postfixExpression = ExpressionManipulation.InfixToPostfix(tempExpressionList);
             Stack<double> operandStack = new Stack<double>();
             foreach (var token in postfixExpression)
             {
@@ -89,17 +113,17 @@ namespace calculator.main
          * <item><term>If the parenthesis are in the right order and properly formatted</term></item>
          * </list></remarks>
          */
+        // ReSharper disable once CognitiveComplexity
         private bool IsExpressionValid()
-        {   //TODO Add something that checks if all variables are defined
-            
+        {
             #region SPECIFIC_CASES
 
                 //Lone number case
                 if (CheckMethods.IsANumber(InputExpression)) return true;
-                
+
                 //Lone variable case
-                if (CheckMethods.IsAVariable(InputExpression)) return true;
-            
+                if (CheckMethods.IsAVariable(InputExpression) && ExpressionList.Count == 1) return true;
+
             #endregion
             
             //checks if the last character is an operator
@@ -110,15 +134,23 @@ namespace calculator.main
             }
             
             //if all the values in the list are numbers separated with spaces like "1213 321 123" 
-            if (ExpressionList.All(CheckMethods.IsAValidOperator))
+            if (ExpressionList.All(CheckMethods.IsANumber))
             {
                 AnsiConsole.MarkupLine("[red]Invalid expression![/]");
                 return false;
             }
 
+            //if there are stacked operators that are neither pluses or minuses
             if (Regex.IsMatch(InputExpression, ".*[*\\/\\^]{2,}.*"))
             {
                 AnsiConsole.MarkupLine("[red]Invalid expression![/]");
+                return false;
+            }
+
+            //checks if each of the variables are initialized
+            foreach (var token in ExpressionList.Where(token => CheckMethods.IsAVariable(token)).Where(token => Variables.GetValue(token) is null))
+            {
+                AnsiConsole.MarkupLine($"[red]The variable \"{token}\" is not initialized![/]");
                 return false;
             }
 
@@ -153,6 +185,9 @@ namespace calculator.main
 
     internal static class Computation
     {
+        /** <summary>Returns the priority of an operator. Used to correctly order operators in
+         * <see cref="ExpressionManipulation.InfixToPostfix(string[])"/>.</summary>
+         */
         internal static int GetOperatorPriorityNumber(string token)
         {
             switch (token)
@@ -171,6 +206,8 @@ namespace calculator.main
             }
         }
         
+        /** <summary>Returns the value of number1 @operator number2</summary>
+         */
         internal static double Compute(double number1, double number2, string @operator)
         {
             return @operator switch
@@ -352,6 +389,12 @@ namespace calculator.main
             return postfixExpression;
         }
 
+        /** <summary>Simplifies the given expression</summary>
+         *
+         * <remarks>The function only removes unecessary '+'s and '-'s.
+         * <example>"3 +--++- 3" => "3 - 3"</example>
+         * </remarks>
+         */
         private static string GetSimplifiedVersion(string expression)
         {
             //turns '--' into '+'
@@ -374,6 +417,10 @@ namespace calculator.main
             return Double.TryParse(token, out _);
         }
 
+        /*TODO the function returns true when there is a variable in the expression, for ecample:
+                x + 5 returns true
+                3 + 8 * ((4 + 3) * 2 + 1) - 6 / (x + 1) returns true
+         */
         internal static bool IsAVariable(string token)
         {
             return Regex.IsMatch(token, "[a-zA-Z]+");

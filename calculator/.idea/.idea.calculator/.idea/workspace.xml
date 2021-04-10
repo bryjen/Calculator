@@ -5,34 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2213f6de-dcbd-4e52-b799-694118d086fa" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/changelog.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/Variables.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/markdown-navigator-enh.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/markdown-navigator-enh.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/markdown-navigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/markdown-navigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/riderModule.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NuGetPackages" beforeDir="false" afterPath="$PROJECT_DIR$/NuGetPackages" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/calculator.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/calculator.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/calculator.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calculator.sln" beforeDir="false" afterPath="$PROJECT_DIR$/calculator.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/Answer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/main/Answer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/Expression.cs" beforeDir="false" afterPath="$PROJECT_DIR$/main/Expression.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/calc/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/main/calc/Main.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/calculator.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/calculator.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/calculator.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/calculator.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/obj/calculator.csproj.nuget.g.targets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Main.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Test.cs" afterDir="false" />
     </list>
@@ -63,11 +50,13 @@
       <option value="$PROJECT_DIR$/main/Answer.cs" />
       <option value="$PROJECT_DIR$/main/Expresssion.cs" />
       <option value="$PROJECT_DIR$/main/variables/vARIABLES.cs" />
-      <option value="$PROJECT_DIR$/tests/Main.cs" />
-      <option value="$PROJECT_DIR$/main/calc/Main.cs" />
-      <option value="$PROJECT_DIR$/tests/Test.cs" />
-      <option value="$PROJECT_DIR$/main/Expression.cs" />
       <option value="$PROJECT_DIR$/Program.cs" />
+      <option value="$PROJECT_DIR$/main/calc/Main.cs" />
+      <option value="$PROJECT_DIR$/main/Expression.cs" />
+      <option value="$PROJECT_DIR$/tests/Test.cs" />
+      <option value="$PROJECT_DIR$/tests/Main.cs" />
+      <option value="$PROJECT_DIR$/main/Variables.cs" />
+      <option value="$PROJECT_DIR$/changelog.txt" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1qsHj0wppLqZgrV5vVmiS0nxiHI" />
@@ -86,6 +75,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected=".NET Project.Calculator">
@@ -147,6 +137,8 @@
       <workItem from="1617891043521" duration="865000" />
       <workItem from="1617970898270" duration="9660000" />
       <workItem from="1617991932258" duration="3990000" />
+      <workItem from="1618033895333" duration="7898000" />
+      <workItem from="1618049724789" duration="8403000" />
     </task>
     <servers />
   </component>
@@ -169,5 +161,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

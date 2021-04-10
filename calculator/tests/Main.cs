@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using calculator.main;
+using NUnit.Framework.Internal;
 using Spectre.Console;
 
 namespace calculator.tests
@@ -11,47 +12,42 @@ namespace calculator.tests
         {
             List<CalcTest> tests = new List<CalcTest>();
             
-            tests.Add(new CalcTest("a1", "+10", true, 10, 
-                null));
-            tests.Add(new CalcTest("a2", "-22", true, -22,  
-                null));
-            tests.Add(new CalcTest("a3", "3 + 2 * 4", true, 11, 
-                null));
-            tests.Add(new CalcTest("a4", "2 * (3 + 4) + 1", true, 15,   
-                null));
-            tests.Add(new CalcTest("a5", "8 * 3 + 12 * (4 - 2)", true, 48,  
-                null));
-            tests.Add(new CalcTest("a6", "2 - 2 + 3", true, 3,  
-                null));
-            tests.Add(new CalcTest("a7", "2*2^3", true, 16, 
-                null));
-            tests.Add(new CalcTest("a8", "8 + 7 - 4", true, 11, 
-                null));
-            tests.Add(new CalcTest("a9", "3 + 8 * ((4 + 3) * 2 + 1) - 6 / (2 + 1)", true, 121,  
-                null));
+            tests.Add(new CalcTest("validation1", "3 *** 5", false, null, false,
+                new []{"validation"}));
+            tests.Add(new CalcTest("validation2", "10-", false, null, false,
+                new []{"validation"}));
+            tests.Add(new CalcTest("validation3", "4 * (2 + 3", false, null, false,
+                new []{"validation"}));
+            tests.Add(new CalcTest("validation4", "4+3)", false, null, false,
+                new []{"validation"}));
+            tests.Add(new CalcTest("validation5", "123+", false, null, false,
+                new []{"validation"}));
+            tests.Add(new CalcTest("validation6", "1 23 456 7890", false, null, false,
+                new []{"validation"}));
+            tests.Add(new CalcTest("validation7", "-100", true, -100, false,
+                new []{"validation"}));
+            tests.Add(new CalcTest("validation8", "0.00000000000000000000", true, 0, false,
+                new []{"validation", "output"}));
+            tests.Add(new CalcTest("validation9", "()", false, null, false,
+                new []{"validation", "parenthesis", "empty expression"}));
+            tests.Add(new CalcTest("validation10", "() + 5", true, -5, false,
+                new []{"validation", "parenthesis", "empty expression"}));
+            tests.Add(new CalcTest("validation11", "(-4 + ()) + 5", true, 26, true,
+                new []{"validation", "parenthesis", "empty expression"}));
             
-            tests.Add(new CalcTest("b1", "3 *** 5", false, null,
-                null));
-            tests.Add(new CalcTest("b2", "10-", false, null,
-                null));
-            tests.Add(new CalcTest("b3", "4 * (2 + 3", false, null,
-                null));
-            tests.Add(new CalcTest("b4", "4+3)", false, null,
-                null));
-            tests.Add(new CalcTest("b5", "123+", false, null,
-                null));
-            tests.Add(new CalcTest("b6", "-22", true, -22,
-                null));
-            tests.Add(new CalcTest("(postponed)b7", "()", false, null,
-                null));
-            tests.Add(new CalcTest("(postponed)b8", "() + 5", false, null,
-                null));
-            tests.Add(new CalcTest("b9", "(-5 * 2 ) + 5", true, -5,
-                null));
-            tests.Add(new CalcTest("b10", "(-4 + 5( 4+ 1)) + 5", true, 26,
-                null));
-            tests.Add(new CalcTest("(postponed)b11", "(-4 + ()) + 5", false, null,
-                null));
+            
+            tests.Add(new CalcTest("add1", "3.0 + 3.0", true, 6, false,
+                new []{"addition"}));
+            tests.Add(new CalcTest("add2", "-3.5 +-+ 2.5", true, -6, false,
+                new []{"addition"}));
+            tests.Add(new CalcTest("add3", "-1987.50 + 1987", true, -0.5, false,
+                new []{"addition"}));
+            tests.Add(new CalcTest("add4", "10 + 9.9999", true, 19.9999, false,
+                new []{"addition"}));
+            tests.Add(new CalcTest("add5", "34.999 + 1.0", true, 35.999, false,
+                new []{"addition"}));
+            tests.Add(new CalcTest("add6", "300000000 + 900000000", true, 1200000000, true,
+                new []{"addition", "large numbers"}));
 
             var message = "";
             main : do
@@ -65,6 +61,7 @@ namespace calculator.tests
                     test.run();
                     AnsiConsole.MarkupLine($">{test.TestName} :{(test.IsPassed() ? "[green]" : "[red]")}" +
                                            $"{(test.IsPassed() ? "Passed" : "Failed")}[/]:");
+                    AnsiConsole.Write(test.AddBreak ? "\n" : "");
                 }
                 
                 var userInput = Console.ReadLine();

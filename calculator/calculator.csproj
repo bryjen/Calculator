@@ -11,8 +11,4 @@
       <PackageReference Include="Spectre.Console" Version="0.38.1-preview.0.35" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="main\variables" />
-    </ItemGroup>
-
 </Project>

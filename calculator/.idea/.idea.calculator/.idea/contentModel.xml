@@ -7,13 +7,14 @@
       <e p="bin" t="ExcludeRecursive" />
       <e p="calculator.csproj" t="IncludeRecursive" />
       <e p="calculator.sln" t="IncludeFlat" />
+      <e p="changelog.txt" t="Include" />
       <e p="main" t="Include">
         <e p="Answer.cs" t="Include" />
         <e p="calc" t="Include">
           <e p="main.cs" t="Include" />
         </e>
         <e p="Expression.cs" t="Include" />
-        <e p="Variables" t="Include" />
+        <e p="Variables.cs" t="Include" />
       </e>
       <e p="NuGetPackages" t="Include" />
       <e p="obj" t="ExcludeRecursive">

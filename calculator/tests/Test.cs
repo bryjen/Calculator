@@ -25,22 +25,25 @@ namespace calculator.tests
         public bool IsResultCorrect { get; private set; }
         
         public string[] TestsWhat { get; private set; }
+        
+        public bool AddBreak { get; private set; }
 
         public CalcTest(string testName, string expression, bool expectedValidity, double? expectedResult,
-            string[] testsWhat)
+            bool addBreak, string[] testsWhat)
         {
             TestName = testName;
             Expression = new Expression(expression.Trim());
             ExpectedValidity = expectedValidity;
             ExpectedResult = expectedResult;
             TestsWhat = testsWhat;
+            AddBreak = addBreak;
         }
 
         [Test]
         public void run()
         {
             //Assert the validity of the expression
-            GotValidity = Expression.Valid;
+            GotValidity = Expression.IsValid;
             if (GotValidity != ExpectedValidity)
             {
                 GotResult = null;
@@ -94,6 +97,8 @@ namespace calculator.tests
             
             AnsiConsole.MarkupLine($"\n    Expected Result:         {ExpectedResult}");
             AnsiConsole.MarkupLine($"    Got Result:              {(IsResultCorrect ? "[green]" : "[red]")}{GotResult}[/]");
+            
+            AnsiConsole.WriteLine("\n[\"{0}\"]", string.Join("\", \"", TestsWhat));
 
             Console.ReadLine();
         }
