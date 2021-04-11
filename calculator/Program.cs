@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Spectre.Console;
 
 namespace calculator
 {
@@ -7,36 +8,36 @@ namespace calculator
         class Settings
         {
             [Option('t', "tests",
-                Required = false, Default = false,
-                HelpText = "Enables/Disables Unit Testing mode")]
-            public bool UnitTestMode { get; set; }
-            
-            
+                Required = false, Default = null,
+                HelpText = "Enter the mode you want to unit test." +
+                           "Available modes so far: calc")]
+            public string UnitTestName { get; set; }
         }
         
         static void Main(string[] args)
         {
             var settings = Parser.Default.ParseArguments<Settings>(args).Value;
-            if (settings.UnitTestMode)
+
+            //executes the calculator - normal case
+            if (settings.UnitTestName is null)
             {
-                tests.Main.Enter();
+                main.calc.Main.Enter();
                 return;
             }
-            main.calc.Main.Enter();
+
+            switch (settings.UnitTestName)
+            {
+                case "calc":
+                    tests.Calc.Enter();
+                    return;
+                default:
+                    AnsiConsole.MarkupLine($"[red]   \"{settings.UnitTestName}\" is not a valid mode!\n" + 
+                                           "Valid modes: calc.[/]");
+                    return;
+            }
         }
     }
 }
-
-/*
- DO (IN ORDER)
- -  IMPLEMENT NON-VARIABLE Expression.IsExpressionValid() and Expression.Solve()
- -  POLISH UP/REDO UNIT TESTING THINGY TO MAKE IT LOOK BETTER + BE ABLE TO BE MORE CONCISE + DISPLAY MORE INFO
- -  ADD VARIABLE SUPPORT IN DIRECTORY "variables". Make the code here cleaner and more readable + make it so that fetching values
-    (which includes solving the expressions within them) in this class, instead of in the expression (is subject change)
- -  ADD VARIABLE SUPPORT TO Expression.IsExpressionValid() and Expression.Solve()
- 
- Total time for these ^ around 3 days
- 
- Then add the new features
-    
+/*  to-do list;
+        -   Finish implementing unit tests for the calc mode.
 */

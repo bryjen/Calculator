@@ -10,8 +10,15 @@ namespace calculator.main.calc
             do
             {
                 AnsiConsole.Write("> ");
-                var userInput = Console.ReadLine()
+                var userInput = Console.ReadLine() 
                     .Trim();
+
+                //if the input is a command
+                if (userInput.StartsWith("/"))
+                {
+                    command.Commands.Execute(userInput, "calc");
+                    continue;
+                }
 
                 //if the input is an assignment
                 if (userInput.Contains("="))

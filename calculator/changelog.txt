@@ -47,3 +47,20 @@ v1.2
     
     -   Implementing / WIP : Adding and polishing the unit testing interface, and the unit tests themselves. Currently adding 
     more tests that test the capabilities of the program
+    
+v1.3
+    -   Added the "ans" variable. It stores the values of the previous expression and cannot be re-assigned. 
+    
+    -   Added basic commands such as /help, /clear and /exit. Executing just /help (without any tokens) will show details 
+    about the current mode. /clear clears the console and /exit exits the application
+    
+    -   (Basically) Finished implementing the unit testing mode. It is tested using both normal and variable tests, where
+    normal tests test the ability of the program to compute, while variable tests test not only the program's ability to compute,
+    but also its ability to recognize variables and constants.
+    
+    Additionally changed the --t / --tests program arguments to take the name of the mode that is to be tested. If the
+    given mode does not match any existing modes, the program will not run.
+    
+    -   Fixed a few bugs where the program would not cancel out pluses and minuses if not ordered correctly.
+    
+    -   Rearranged some code + files to make the program more compact

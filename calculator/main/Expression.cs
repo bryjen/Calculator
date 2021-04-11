@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using calculator.main.calc;
-using CommandLine;
-using NUnit.Framework;
 using Spectre.Console;
 
 namespace calculator.main
@@ -38,11 +35,12 @@ namespace calculator.main
          * if the method is called and the validity of the expression is false, it will return null </summary>
          *
          * <remarks>The method turns the expression (which is in infix notation) into its postfix expression using the
-         * <see cref="ExpressionManipulation.InfixToPostfix(string[] infixExpression)"/> function, then solves the expression using
+         * <see cref="ExpressionManipulation.InfixToPostfix(string[])"/> function, then solves the expression using
          * a postfix expression solving algorithm described 
          * <a href="https://runestone.academy/runestone/books/published/pythonds/BasicDS/InfixPrefixandPostfixExpressions.html">here</a>.
          * </remarks>.
          */
+        // ReSharper disable once CognitiveComplexity
         public double? Solve()
         {
             if (!IsValid)
@@ -52,13 +50,22 @@ namespace calculator.main
             }
             
             //If the expression is a lone number, output it back
-            if (CheckMethods.IsANumber(InputExpression)) return double.Parse(InputExpression);
+            if (CheckMethods.IsANumber(InputExpression))
+            {
+                var value = double.Parse(InputExpression);
+                Variables.SetAns(value.ToString());
+                return value;
+            }
 
             //If the expression is a lone variable, output its value back
             if (CheckMethods.IsAVariable(InputExpression) && ExpressionList.Count == 1)
             {
                 var value = Variables.GetValue(InputExpression);
-                if (value is not null) return value;
+                if (value is not null)
+                {
+                    Variables.SetAns(value.ToString());
+                    return value;
+                }
                 AnsiConsole.MarkupLine($"[red]The variable \"{InputExpression}\" is not initialized![/]");
                 return null;
             }
@@ -94,7 +101,12 @@ namespace calculator.main
                 operandStack.Push(Computation.Compute(number1, number2, token));
             }
 
-            if (operandStack.Count == 1) return operandStack.Pop();
+            if (operandStack.Count == 1)
+            {
+                var value = operandStack.Pop();
+                Variables.SetAns(value.ToString());     //sets the "ans" variable to this value
+                return value;
+            }
             
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("SYNTAX ERROR!");
@@ -147,8 +159,21 @@ namespace calculator.main
                 return false;
             }
 
+            
+            //if the user tries to use "ans" without it being initialized
+            if (ExpressionList
+                .Where(token => CheckMethods.IsAVariable(token))
+                .Where(token => token.Equals("ans"))
+                .Any(token => Variables.GetValue("ans") is null))
+            {
+                AnsiConsole.MarkupLine($"[red]\"ans\" has not been initialized yet.[/]");
+                return false;
+            }
+
             //checks if each of the variables are initialized
-            foreach (var token in ExpressionList.Where(token => CheckMethods.IsAVariable(token)).Where(token => Variables.GetValue(token) is null))
+            foreach (var token in ExpressionList
+                .Where(token => CheckMethods.IsAVariable(token))
+                .Where(token => Variables.GetValue(token) is null))
             {
                 AnsiConsole.MarkupLine($"[red]The variable \"{token}\" is not initialized![/]");
                 return false;
@@ -307,6 +332,18 @@ namespace calculator.main
                     expressionList.RemoveAt(i + 2);
                 }
 
+                //checks for '-'s, if there is a non '+' operator that preceeds it and a number that follows it, the negative
+                //will group the negative sign and the number
+                for (var i = 1; i < expressionList.Count; i++) 
+                {
+                    if (expressionList[i].Equals("-") && (!expressionList[i - 1].Equals("+") && CheckMethods.IsAValidOperator(expressionList[i - 1]))
+                                                      && CheckMethods.IsANumber(expressionList[i + 1]))
+                    {
+                        expressionList[i] = $"-{expressionList[i + 1]}";
+                        expressionList.RemoveAt(i + 1);
+                    }
+                }
+
             #endregion
 
             if (expressionList[0].Equals("+")) { expressionList.RemoveAt(0); }
@@ -406,6 +443,8 @@ namespace calculator.main
             //turns '-+' or '+-' into '-'
             expression = new Regex("(\\+\\-)|(\\-\\+)").Replace(expression, "-");
 
+            if (Regex.IsMatch(expression, "(\\+\\-)|(\\-\\+)")) expression = GetSimplifiedVersion(expression);
+
             return expression;
         }
     }
@@ -428,7 +467,7 @@ namespace calculator.main
 
         internal static bool IsAValidOperator(string token)
         {
-            var validOperators = new string[]
+            var validOperators = new []
             {
                 "+", "-", "*", "/", "%", "^"
             };

@@ -9,9 +9,11 @@
       <e p="calculator.sln" t="IncludeFlat" />
       <e p="changelog.txt" t="Include" />
       <e p="main" t="Include">
-        <e p="Answer.cs" t="Include" />
         <e p="calc" t="Include">
           <e p="main.cs" t="Include" />
+        </e>
+        <e p="command" t="Include">
+          <e p="Commands.cs" t="Include" />
         </e>
         <e p="Expression.cs" t="Include" />
         <e p="Variables.cs" t="Include" />
@@ -27,8 +29,7 @@
       <e p="packages" t="ExcludeRecursive" />
       <e p="Program.cs" t="Include" />
       <e p="tests" t="Include">
-        <e p="main.cs" t="Include" />
-        <e p="test.cs" t="Include" />
+        <e p="CalcTest.cs" t="Include" />
       </e>
     </e>
   </component>

@@ -65,6 +65,14 @@ namespace calculator.main
                 }
 
             #endregion
+
+            if (variable.Equals("ans"))
+            {
+                AnsiConsole.MarkupLine($"[red]You can't re-assign \"{variable}\", it stores the value of the previous " +
+                                       "expression.[/]");
+                return;
+            } 
+            
             
             variables[variable] = expression;
             AnsiConsole.MarkupLine("[blue]Assigned![/]");
@@ -86,6 +94,18 @@ namespace calculator.main
             }
 
             return null;
+        }
+
+        public static void SetAns(string value)
+        {
+            variables["ans"] = new Expression(value);
+        }
+
+        /** <summary>Removes all assigned variables // de-assigns all variables.</summary>
+         */
+        public static void Clear()
+        {
+            variables.Clear();
         }
     }
 }

@@ -5,23 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2213f6de-dcbd-4e52-b799-694118d086fa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/changelog.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/Variables.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/command/Commands.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/CalcTest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/calculator.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calculator.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/calculator.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/changelog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/changelog.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/Answer.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main/Expression.cs" beforeDir="false" afterPath="$PROJECT_DIR$/main/Expression.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/Variables.cs" beforeDir="false" afterPath="$PROJECT_DIR$/main/Variables.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/calc/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/main/calc/Main.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/calculator.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Main.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Main.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Test.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Main.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Test.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,12 +52,14 @@
       <option value="$PROJECT_DIR$/main/Answer.cs" />
       <option value="$PROJECT_DIR$/main/Expresssion.cs" />
       <option value="$PROJECT_DIR$/main/variables/vARIABLES.cs" />
-      <option value="$PROJECT_DIR$/Program.cs" />
-      <option value="$PROJECT_DIR$/main/calc/Main.cs" />
-      <option value="$PROJECT_DIR$/main/Expression.cs" />
-      <option value="$PROJECT_DIR$/tests/Test.cs" />
       <option value="$PROJECT_DIR$/tests/Main.cs" />
+      <option value="$PROJECT_DIR$/tests/Test.cs" />
+      <option value="$PROJECT_DIR$/Program.cs" />
+      <option value="$PROJECT_DIR$/tests/CalcTest.cs" />
       <option value="$PROJECT_DIR$/main/Variables.cs" />
+      <option value="$PROJECT_DIR$/main/Expression.cs" />
+      <option value="$PROJECT_DIR$/main/command/Commands.cs" />
+      <option value="$PROJECT_DIR$/main/calc/Main.cs" />
       <option value="$PROJECT_DIR$/changelog.txt" />
     </changedPaths>
   </component>
@@ -99,7 +103,7 @@
     </configuration>
     <configuration name="Unit Tests" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/bin/Debug/net5.0/calculator.dll" />
-      <option name="PROGRAM_PARAMETERS" value="--t true" />
+      <option name="PROGRAM_PARAMETERS" value="--t calc" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin/Debug/net5.0" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -139,6 +143,9 @@
       <workItem from="1617991932258" duration="3990000" />
       <workItem from="1618033895333" duration="7898000" />
       <workItem from="1618049724789" duration="8403000" />
+      <workItem from="1618079295817" duration="1392000" />
+      <workItem from="1618083109680" duration="76000" />
+      <workItem from="1618117582416" duration="15607000" />
     </task>
     <servers />
   </component>
