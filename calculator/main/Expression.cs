@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using CommandLine;
 using Spectre.Console;
 
 namespace calculator.main
@@ -108,9 +109,7 @@ namespace calculator.main
                 return value;
             }
             
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("SYNTAX ERROR!");
-            Console.ResetColor();
+            AnsiConsole.MarkupLine("[red]Invalid Expression (at Solve)[/]");
             return null;
         }
         
@@ -139,9 +138,10 @@ namespace calculator.main
             #endregion
             
             //checks if the last character is an operator
-            if (CheckMethods.IsAValidOperator(InputExpression[^1].ToString()))
+            if (CheckMethods.IsAValidOperator(InputExpression[^1].ToString()) || 
+                CheckMethods.IsATrigonometricFunction(ExpressionList[^1]))
             {
-                AnsiConsole.MarkupLine("[red]Invalid expression! The expression ends with an operator![/]");
+                AnsiConsole.MarkupLine("[red]Invalid expression! The expression ends with an operator/trigno. func![/]");
                 return false;
             }
             
@@ -173,6 +173,7 @@ namespace calculator.main
             //checks if each of the variables are initialized
             foreach (var token in ExpressionList
                 .Where(token => CheckMethods.IsAVariable(token))
+                .Where(token => !CheckMethods.IsATrigonometricFunction(token))
                 .Where(token => Variables.GetValue(token) is null))
             {
                 AnsiConsole.MarkupLine($"[red]The variable \"{token}\" is not initialized![/]");
@@ -270,6 +271,10 @@ namespace calculator.main
                 expression = GetSimplifiedVersion(expression);
                 var expressionArray = expression.ToCharArray().Select(c => c.ToString().Trim()).ToArray();
 
+                //the function can increment this to when it opens a parentheses, then at certain parts in the function,
+                //if this != 0, the function will decrement it then add a right ')' parentheses
+                var closeParenthesis = 0;
+
                 List<string> expressionList = new List<string>();
                 StringBuilder termBuilder = new StringBuilder();
                 foreach (var token in expressionArray)
@@ -278,39 +283,83 @@ namespace calculator.main
                     {
                         if (!termBuilder.ToString().Equals(""))
                             expressionList.Add(termBuilder.ToString());
-                        expressionList.Add(token);
 
+                        //groups the term after the power operator, so that if it were to be split, it would still calculate correctly
+                        //ex. 5^2x => 5^(2*x) WITHOUT: 5^2*x
+                        if (token.Equals("^"))
+                        {
+                            if (closeParenthesis != 0)
+                            {
+                                expressionList.Add(")");
+                                closeParenthesis--;
+                            }
+                            
+                            closeParenthesis++;
+                            expressionList.Add(token);
+                            expressionList.Add("(");
+                            
+                            termBuilder.Clear();
+                            continue;
+                        }
+                        
+                        //cloeses the parenthesis
+                        if (closeParenthesis != 0)
+                        {
+                            expressionList.Add(")");
+                            closeParenthesis--;
+                        }
+
+                        expressionList.Add(token);
                         termBuilder.Clear();
                         continue;
+                    }
+
+                    if (CheckMethods.IsATrigonometricFunction(termBuilder.ToString()))
+                    {
+                        expressionList.Add(termBuilder.ToString());
+                        expressionList.Add("(");
+                        termBuilder.Clear();
+
+                        closeParenthesis++;
+                        
+                        termBuilder.Append(token);
+                        continue;
+                    }
+
+                    //if the term in the term builder is a number, and the token to be appended is a letter, it means that
+                    //the next token will be a variable. So it appends the number and a '*' to the list then clears the
+                    //termbuilder
+                    if (CheckMethods.IsANumber(termBuilder.ToString()) &&
+                        Regex.IsMatch(token, "[a-zA-Z]"))
+                    {
+                        expressionList.Add(termBuilder.ToString());
+                        expressionList.Add("*");
+                        termBuilder.Clear();
                     }
 
                     termBuilder.Append(token);
                 }
                 expressionList.Add(termBuilder.ToString());
                 expressionList.RemoveAll(term => term.Equals(""));
+
+                for (var i = 0; i < closeParenthesis; i++) { expressionList.Add(")"); }
             
             #endregion
-
+            
             #region ADD_*_WHERE_MISSING
     
                 //Adds '*' if a number/variable is followed by a left parenthesis 
                 for (var i = 1; i < expressionList.Count; i++)
                 {
+                    //prevents stuff like [sin, *, (, x, )]
+                    if (expressionList[i].Equals("(") && CheckMethods.IsATrigonometricFunction(expressionList[i - 1])) continue;
+                    
                     if (!(expressionList[i].Equals("(") && !CheckMethods.IsAValidOperator(expressionList[i - 1])
                         && !expressionList[i-1].Equals("("))) continue;
                     expressionList.Insert(i, "*");
                 }
                 
-                //Splits a variable and its coefficient, then adds a '*" between them
-                for (var i = 0; i < expressionList.Count; i++)
-                {
-                    if (!Regex.IsMatch(expressionList[i], "\\d+[a-zA-Z]+")) continue;
-                    var coefficient = Regex.Match(expressionList[i], "\\d+").Value;
-                    var variable = new Regex("\\d+").Replace(expressionList[i], "");
-                    expressionList.Insert(i, "*");
-                    expressionList.Insert(i, coefficient);
-                    expressionList[i + 2] = variable;
-                }
+                //placed into the first region
 
             #endregion
             
@@ -385,7 +434,6 @@ namespace calculator.main
                 {
                     do
                     {
-                        
                         var value = opstack.Pop();
                         if (value.Equals("(")) break;
                         postfixExpression.Add(value);
@@ -472,6 +520,12 @@ namespace calculator.main
                 "+", "-", "*", "/", "%", "^"
             };
             return validOperators.Any(@operator => @operator.Equals(token));
+        }
+
+        internal static bool IsATrigonometricFunction(string token)
+        {
+            var functions = new[] { "sin", "cos", "tan", "csc", "sec", "cot", "arcsin", "arccos", "arctan" };
+            return functions.Any(trignometricFunction => trignometricFunction.Equals(token));
         }
     }
 }

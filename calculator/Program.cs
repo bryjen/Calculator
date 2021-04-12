@@ -1,4 +1,6 @@
-﻿using CommandLine;
+﻿using System;
+using calculator.main;
+using CommandLine;
 using Spectre.Console;
 
 namespace calculator
@@ -17,6 +19,21 @@ namespace calculator
         static void Main(string[] args)
         {
             var settings = Parser.Default.ParseArguments<Settings>(args).Value;
+
+            
+            do
+            {
+                var expression = new Expression(Console.ReadLine());
+                AnsiConsole.WriteLine();
+                
+                
+                AnsiConsole.WriteLine(expression.InputExpression + "\n" + expression.IsValid);
+                AnsiConsole.WriteLine("[{0}]", string.Join(", ", expression.ExpressionList));
+                AnsiConsole.WriteLine("[{0}]", string.Join(", ", ExpressionManipulation.InfixToPostfix(expression.ExpressionList.ToArray())));
+                
+                if (expression.IsValid) Console.WriteLine(expression.Solve());
+            } while (true);
+            
 
             //executes the calculator - normal case
             if (settings.UnitTestName is null)
