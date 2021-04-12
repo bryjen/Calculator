@@ -64,3 +64,7 @@ v1.3
     -   Fixed a few bugs where the program would not cancel out pluses and minuses if not ordered correctly.
     
     -   Rearranged some code + files to make the program more compact
+    
+v1.3.1
+    - Added recognition of trigonometric functions (sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan). Refactored the code so ExpressionManipulation.GetExpressionInListForm(string) recognizes these functions and adds parentheses to the values in these functions.
+    Ex. 5tan5x+1 => 5 * tan ( 5 * x ) + 1

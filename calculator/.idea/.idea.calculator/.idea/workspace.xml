@@ -11,6 +11,8 @@
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/calculator.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/Expression.cs" beforeDir="false" afterPath="$PROJECT_DIR$/main/Expression.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/Variables.cs" beforeDir="false" afterPath="$PROJECT_DIR$/main/Variables.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/command/Commands.cs" beforeDir="false" afterPath="$PROJECT_DIR$/main/command/Commands.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/calculator.dll" afterDir="false" />
@@ -45,12 +47,12 @@
       <option value="$PROJECT_DIR$/tests/Main.cs" />
       <option value="$PROJECT_DIR$/tests/Test.cs" />
       <option value="$PROJECT_DIR$/tests/CalcTest.cs" />
-      <option value="$PROJECT_DIR$/main/Variables.cs" />
-      <option value="$PROJECT_DIR$/main/command/Commands.cs" />
       <option value="$PROJECT_DIR$/main/calc/Main.cs" />
       <option value="$PROJECT_DIR$/changelog.txt" />
-      <option value="$PROJECT_DIR$/Program.cs" />
+      <option value="$PROJECT_DIR$/main/Variables.cs" />
       <option value="$PROJECT_DIR$/main/Expression.cs" />
+      <option value="$PROJECT_DIR$/Program.cs" />
+      <option value="$PROJECT_DIR$/main/command/Commands.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1qsHj0wppLqZgrV5vVmiS0nxiHI" />
@@ -72,10 +74,10 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected=".NET Project.Unit Tests">
+  <component name="RunManager" selected=".NET Project.Calculator">
     <configuration name="Calculator" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/bin/Debug/net5.0/calculator.dll" />
-      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="--angle rad" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bin/Debug/net5.0" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
@@ -137,8 +139,18 @@
       <workItem from="1618083109680" duration="76000" />
       <workItem from="1618117582416" duration="15607000" />
       <workItem from="1618134979463" duration="669000" />
-      <workItem from="1618204273792" duration="7492000" />
+      <workItem from="1618204273792" duration="9895000" />
+      <workItem from="1618222188429" duration="1603000" />
+      <workItem from="1618231573996" duration="3856000" />
     </task>
+    <task id="LOCAL-00001" summary="v1.3.1&#10;- Added recognition of trigonometric functions (sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan). Refactored the code so ExpressionManipulation.GetExpressionInListForm(string) recognizes these functions and adds parentheses to the values in these functions.&#10;&#10;Ex. 5tan5x+1 =&gt; 5 * tan ( 5 * x ) + 1">
+      <created>1618212036657</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1618212036657</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,6 +172,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="v1.3.1&#10;- Added recognition of trigonometric functions (sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan). Refactored the code so ExpressionManipulation.GetExpressionInListForm(string) recognizes these functions and adds parentheses to the values in these functions.&#10;&#10;Ex. 5tan5x+1 =&gt; 5 * tan ( 5 * x ) + 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.3.1&#10;- Added recognition of trigonometric functions (sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan). Refactored the code so ExpressionManipulation.GetExpressionInListForm(string) recognizes these functions and adds parentheses to the values in these functions.&#10;&#10;Ex. 5tan5x+1 =&gt; 5 * tan ( 5 * x ) + 1" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -64,6 +64,13 @@ namespace calculator.main
                     return;
                 }
 
+                //prevents the (re)assigning of a function. ex "sin = 20"
+                if (CheckMethods.IsAFunction(variable))
+                {
+                    AnsiConsole.MarkupLine($"[red]You can't (re)assign a function![/]");
+                    return;
+                }
+
             #endregion
 
             if (variable.Equals("ans"))

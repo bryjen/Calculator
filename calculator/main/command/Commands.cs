@@ -8,15 +8,17 @@ namespace calculator.main.command
     {
         public static void Execute(string command, string fromWhere)
         {
-            
-            switch (command)
+            var mainCommand = Regex.Match(command, "/[a-zA-Z]+").Value.Trim();
+            var tokens = new Regex("/[a-zA-Z]+").Replace(command, "").Trim();
+
+            switch (mainCommand)
             {
                 case "/exit":
                     AnsiConsole.MarkupLine("[blue]Bye![/]");
                     Environment.Exit(0);
                     return;
                 case "/help":
-                    ExecuteHelp(fromWhere);
+                    ExecuteHelp(tokens, fromWhere);
                     break;
                 case "/clear":
                     if (!new Regex("/clear").Replace(command, "").Equals(""))
@@ -26,14 +28,26 @@ namespace calculator.main.command
                     }
                     Console.Clear();
                     return;
+                case "/angle":
+                    ChangeAngle(tokens);
+                    break;
                 default:
                     AnsiConsole.MarkupLine("[red]Unknown Command![/]");
                     break;
             }
         }
 
-        private static void ExecuteHelp(string fromWhere)
+        private static void ExecuteHelp(string token, string fromWhere)
         {
+            switch (token)
+            {
+                case "":
+                    break;
+                default:
+                    AnsiConsole.MarkupLine($"[red]Unknown token \"{token}\"[/]");
+                    return;
+            }
+            
             switch (fromWhere)
             {
                 case "calc":
@@ -54,6 +68,29 @@ namespace calculator.main.command
                     return;
                 default:
                     AnsiConsole.MarkupLine($"[red]AN ERROR HAS OCCURRED, UNKNOWN FROMWHERE \"{fromWhere}\"[/]");
+                    return;
+            }
+        }
+
+        private static void ChangeAngle(string token)
+        {
+            switch (token)
+            {
+                case "deg":
+                case "degree":
+                case "degrees":
+                    Program.ProgramSettings.Angle = "deg";
+                    AnsiConsole.MarkupLine("[blue]Angle mode set to degrees/deg[/]");
+                    return;
+                case "rad":
+                case "radian":
+                case "radians":
+                    Program.ProgramSettings.Angle = "rad";
+                    AnsiConsole.MarkupLine("[blue]Angle mode set to radians/rad[/]");
+                    return;
+                default:
+                    AnsiConsole.MarkupLine("[red]Unknown angle mode: \"{ProgramSettings.Angle}\". Valid modes are:\n" +
+                                           "degree(s) // deg, radian(s) // rad[/]");
                     return;
             }
         }

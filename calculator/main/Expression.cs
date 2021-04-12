@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using CommandLine;
 using Spectre.Console;
 
 namespace calculator.main
@@ -83,6 +82,7 @@ namespace calculator.main
             //vaues in its variables (if it has any) change.
             for (var i = 0; i < tempExpressionList.Length; i++)
             {
+                if (CheckMethods.IsAFunction(tempExpressionList[i])) continue;
                 if (!CheckMethods.IsAVariable(tempExpressionList[i])) continue;
                 tempExpressionList[i] = Variables.GetValue(tempExpressionList[i]).ToString();
             }
@@ -96,6 +96,15 @@ namespace calculator.main
                     operandStack.Push(double.Parse(token));
                     continue;
                 }
+
+                //if it is a trigonometric function, it only needs the top of the stack. So it pops, calculates, then
+                //pushes again.
+                if (CheckMethods.IsAFunction(token))
+                {
+                    operandStack.Push(Computation.Compute(operandStack.Pop(), token));
+                    continue;
+                }
+                
                 //if its not a number, it is an operator
                 var number2 = operandStack.Pop();
                 var number1 = operandStack.Pop();
@@ -139,7 +148,7 @@ namespace calculator.main
             
             //checks if the last character is an operator
             if (CheckMethods.IsAValidOperator(InputExpression[^1].ToString()) || 
-                CheckMethods.IsATrigonometricFunction(ExpressionList[^1]))
+                CheckMethods.IsAFunction(ExpressionList[^1]))
             {
                 AnsiConsole.MarkupLine("[red]Invalid expression! The expression ends with an operator/trigno. func![/]");
                 return false;
@@ -173,7 +182,7 @@ namespace calculator.main
             //checks if each of the variables are initialized
             foreach (var token in ExpressionList
                 .Where(token => CheckMethods.IsAVariable(token))
-                .Where(token => !CheckMethods.IsATrigonometricFunction(token))
+                .Where(token => !CheckMethods.IsAFunction(token))
                 .Where(token => Variables.GetValue(token) is null))
             {
                 AnsiConsole.MarkupLine($"[red]The variable \"{token}\" is not initialized![/]");
@@ -226,7 +235,20 @@ namespace calculator.main
                 case "%":    
                     return 2;
                 case "^":
+                case "sqrt":
+                case "cbrt":
+                case "qtrt":
                     return 3;
+                case "sin":
+                case "cos":
+                case "tan":
+                case "csc":
+                case "sec":
+                case "cot":
+                case "arcsin":
+                case "arccos":
+                case "arctan":
+                    return 4;
                 default:
                     throw new Exception($"An invalid token was attempted to be parsed! {token}");
             }
@@ -244,7 +266,37 @@ namespace calculator.main
                 "/" => number1 / number2,
                 "%" => number1 % number2,
                 "^" => Math.Pow(number1, number2),
-                _ => throw new Exception("invalid @operator was attempted to be parsed at Computation.Compute()")
+                _ => throw new Exception("invalid @operator was attempted to be parsed at Computation.Compute(double, double, string)")
+            };
+        }
+
+        /** <summary>Returns the value of function(number)</summary>
+         */
+        internal static double Compute(double number, string function)
+        {
+            var functions = new[] {"sin", "cos", "tan", "csc", "sec", "cot", "arcsin", "arccos", "arctan"};
+            if (functions.Any(trigonometricFunction => trigonometricFunction.Equals(function))) //if the function is a trignometric function
+            {
+                //Converts radians to degrees if the mode is in degrees
+                number = Program.ProgramSettings.Angle.Equals("deg") ? number * Math.PI / 180 : number;    
+            }
+
+            return function switch
+            {
+                "sqrt" => Math.Sqrt(number),
+                "cbrt" => Math.Cbrt(number),
+                "qtrt" => Math.Pow(number, 0.25),
+                
+                "sin" => Math.Sin(number),
+                "cos" => Math.Cos(number),
+                "tan" => Math.Tan(number),
+                "csc" => 1 / Math.Sin(number),
+                "sec" => 1 / Math.Cos(number),
+                "cot" => 1 / Math.Tan(number),
+                "arcsin" => Math.Asin(number),
+                "arccos" => Math.Acos(number),
+                "arctan" => Math.Atan(number),
+                _ => throw new Exception("invalid function was attempted to be parsed at Computation.Compute(double, string)")
             };
         }
     }
@@ -314,7 +366,7 @@ namespace calculator.main
                         continue;
                     }
 
-                    if (CheckMethods.IsATrigonometricFunction(termBuilder.ToString()))
+                    if (CheckMethods.IsAFunction(termBuilder.ToString()))
                     {
                         expressionList.Add(termBuilder.ToString());
                         expressionList.Add("(");
@@ -345,6 +397,15 @@ namespace calculator.main
                 for (var i = 0; i < closeParenthesis; i++) { expressionList.Add(")"); }
             
             #endregion
+
+            //TODO if you remove this, 4 ^ (1/2) => [4 ^ ( ) * ( 1 / 2 )]
+            //removes parentheses with empty expressions. ex '5 + ()' => '5 +;
+            for (var i = 0; i < expressionList.Count - 1; i++)
+            {
+                if (!(expressionList[i].Equals("(") && expressionList[i + 1].Equals(")"))) continue;
+                expressionList.RemoveAt(i);
+                expressionList.RemoveAt(i);
+            }
             
             #region ADD_*_WHERE_MISSING
     
@@ -352,7 +413,7 @@ namespace calculator.main
                 for (var i = 1; i < expressionList.Count; i++)
                 {
                     //prevents stuff like [sin, *, (, x, )]
-                    if (expressionList[i].Equals("(") && CheckMethods.IsATrigonometricFunction(expressionList[i - 1])) continue;
+                    if (expressionList[i].Equals("(") && CheckMethods.IsAFunction(expressionList[i - 1])) continue;
                     
                     if (!(expressionList[i].Equals("(") && !CheckMethods.IsAValidOperator(expressionList[i - 1])
                         && !expressionList[i-1].Equals("("))) continue;
@@ -446,7 +507,7 @@ namespace calculator.main
                  priority level (defined by the GetOperatorPriorityNumber() function). If so append them to the list.
                  After doing so, push the operator into the list
                  */
-                if (CheckMethods.IsAValidOperator(token))
+                if (CheckMethods.IsAValidOperator(token) || CheckMethods.IsAFunction(token))
                 {
                     var priority = Computation.GetOperatorPriorityNumber(token);
                     do
@@ -522,9 +583,13 @@ namespace calculator.main
             return validOperators.Any(@operator => @operator.Equals(token));
         }
 
-        internal static bool IsATrigonometricFunction(string token)
+        internal static bool IsAFunction(string token)
         {
-            var functions = new[] { "sin", "cos", "tan", "csc", "sec", "cot", "arcsin", "arccos", "arctan" };
+            var functions = new[]
+            {
+                "sin", "cos", "tan", "csc", "sec", "cot", "arcsin", "arccos", "arctan",  //trigonometric functions
+                "sqrt", "cbrt", "qtrt"  //square root, cube root, quartic root
+            };
             return functions.Any(trignometricFunction => trignometricFunction.Equals(token));
         }
     }
