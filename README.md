@@ -1,82 +1,60 @@
 # Calculator
-## Evaluating expressions
-Upon launching the application, it will put the user into the solve/calc mode, where the user types equations for the program to solve. The expressions must be valid, otherwise, the program will output nothing.
+## About
+Calculator is a simple scientific console calculator capable of handling complex arithmetic expressions along with some basic trigonometric functionality.
 
+### Evaluating Expressions
+Upon launching the application, the program will be in solve/calc mode, where the user can enter equations for the program to solve. The expressions must be valid, otherwise, the program will display an error message.
+
+```c++
 	> 3 + 8 * ((4 + 3) * 2 + 1) - 6 / (2 + 1)
 	121
 	> 1 + 2 ^ 5
 	33
-	> 1 + 3(
-	>
+	> (( 4 + 1
+	Invalid expression! Invalid parentheses order!
+```
 
+### Variables
+The user can assign values to variables and can, consequently, create functions with nested variables. For example, in trying to find the root of the equation $x^2 + x - 3 = 0$ using Newton's iterative method, you can use the calculator's variable functionality.
 
+By definition, $x_{n+1} = x_{n} - \frac{f(x)}{f\prime(x)}$, which means $x_{n+1} = x_{n} - \frac{x^2 + x - 3}{2x + 1}$
 
-## Variables
-The user can assign values to variables (initialize variables) using the following syntax: "variable name = variable value". The variable name must be a single word consisting of only letters (so no numbers). The variables "variable" or "a" are valid variable names, while the variables "a variable", "variabl1" and "variable 1" are not valid variable names. Trying to assign values to these variables will result in an error.
-For the variable value, it can be any valid expression, which means that it can be any number (like a = 5), or it can be a valid expression. An expression is valid when all variables in it are defined (i.e all the variables in them are initialized) and the equation's syntax is correct. The user can print the value of an assigned variable by entering its name. If the user enters a non-initialized variable, the program will throw an error message.
+Letting x = 10 be a starting point, we can solve the problem as follows:
 
-	> a = 5
-	assigned!
-	> b = 2 * (3 + 4) + 1
-	assigned!
-	> c2 = 1
-	Invalid assignment					//variable names cannot have numbers
-	> vari abl = 2001
-	Invalid assignment					//variable names cannot have spaces
-	> c = 2a + 1
-	assigned!
-	> d
-	The variable "d" is not initialized!
-	> d = c
-	assigned!
-	> d 
-	11
-	> e = 3 + (4 + -
-	Invalid assignment					//the variable value is an invalid expression
-If the value of a variable in an expression changes, the value of the expression changes as well.
+```c++
+	> 10
+	10
+	> func = ans - (ans^2 + ans - 3)/(2ans + 1)
+	Assigned!
+	> func
+	4.904761904761905
+	> func
+	2.503041745332494
+	> func
+	1.542638891596777
+	> func
+	1.316858983738793
+	> func
+	1.3028302211191816
 	
-	> a = 1
-	assigned!
-	> b = a + 1
-	assigned!
-	> c = b + 1
-	assigned!
-	> c
-	3
-	> a = 0
-	assigned!
-	> c
-	2
+	...
+```
 
+It is important to note that nested variables are dynamic, meaning that if a variable in a variable changes, the value of the parent variable changes as well. Another important note is that the variable 'ans' takes the value of the last computed expression and can be used in a variable as well - as demonstrated above.
 
+### Trigonometric Functions
+#### Changing the Angle
+By default, the angle is set to degrees. This can be changed by entering
 
-## Constants
-As of the moment, there are only three constants available: pi, tau, and e. They behave just as normal variables, but are non re-assignable (they are read only). Attempting to re-assign a constant will throw an error message.
+```c++
+	> /angle rad	//or radians
+	 or
+	> /angle deg	//or degrees
+```
 
-	> pi
-	3.141592653589793
-	> PI
-	3.141592653589793
-	> pi = 22/7
-	"pi" is already defined as a constant!
+Due to round-off errors using C#'s Math's class, not all answers will be 100% precise, as demonstrated below.
 
-
-
-## Commands
-As of right now, there are only four commands: /clear, /exit, /help, and /angle. **/clear** only clears the console. **/exit** exits the user from the application. **/help** displays some (helpful) information about the current mode. **/angle angleType** changes the calculator from radians to degrees. If the user attempts to switch to an unknown angle type, the program will throw an error message and not change its current angle type.
-
-	> /angle radians
-			or
-	> /angle degrees
-
-
-
-
-## Trigonometric Functions
-The calculator has nine trigonometric functions: sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan. The calculator's default angle is degrees. To use these functions, simply enter the function and then the desired input. This feature is somewhat buggy (as of now) since it sometimes does not return exact values.
-
-	> /angle degrees
-	Angle mode set to degrees/deg
+```c++
 	> sin 30
 	0.49999999999999994
 	> tan 45
@@ -85,22 +63,11 @@ The calculator has nine trigonometric functions: sin, cos, tan, csc, sec, cot, a
 	1
 	> cos90
 	6.123233995736766E-17					//which is basically 0 at this point
-	>										//enter to skip a line
-	> /angle rad
-	Angle mode set to radians/rad
-	> sin 2pi
-	-2.4492935982947064E-16					//which, again, is extremely close to zero
-	> sin (pi/2)
-	1
-	> sin(pi/6)							
-	0.49999999999999994
-The feature does exist, but at the moment it is quite unreliable for more exact values. For example, in degrees, sin 45 is 1/√2 or √2/2,  but is outputted as 0.7071067811865476.
+```
 
+### Other Functions
 
-
-## Other functions
-The program also has support for exponents, and radicals, with radial functions up to the quartic degree. That means that the program has the functions sqrt, cbrt, and qtrt, which stand for square root, cubic root, and the quartic root respectively. Alternatively, the user can have greater radicands by putting fractions into exponents. They behave similarly enough to the mentioned functions, but are somewhat more time consuming.
-	
+```c++
 	> sqrt4
 	2
 	> cbrt 8
@@ -111,8 +78,20 @@ The program also has support for exponents, and radicals, with radial functions 
 	2
 	> 32^(1/5)
 	2
+```
 
+## Medium
+Made solely using C#.
 
+## Process
+As charming and function packed as the default Windows calculator was, it was always missing the support for copy paste solving expressions - like $3 + 8 * ((4 + 3) * 2 + 1) - 6 / (2 + 1)$. So this project started with that.
 
-### Remarks
-The program is far from completed. What's meant by that is that it could be expanded more in the future. However, it serves its purpose enough to be considered somewhat of a finished prototype.
+I first had to develop a system to split an equation into its components: $3(4+func)$ = { 3, \*, (, 4, +, func, ) }. Using mainly Regex, I was able to achieve turning a String equation into a String list with all corresponding components, adding extra components if necessary (like adding a * like the example above). After that, I coded an algorithm that changes the order of the components in the list from infix to postfix notation. I then used stacks to create a method that solves postfix expressions.
+
+From there, I decided to add more features, like being able to assign variables. I had to add a hashmap that stores initialized variable names and their corresponding value. After that, before an expression gets solved, the program goes through all components, checking if it is a variable and then substituting its value if initialized. If not, the program throws an error.
+
+After that, I added less important features, such as trigonometric functions; sqrt, cbrt, qtrt functions; etc.
+
+## Download Instructions
+
+N/A WAIT

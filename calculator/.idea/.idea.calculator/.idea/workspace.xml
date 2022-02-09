@@ -5,29 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2213f6de-dcbd-4e52-b799-694118d086fa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/contentModel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/riderModule.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.runtimeconfig.dev.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.runtimeconfig.dev.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/apphost.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.csprojAssemblyReference.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/calculator.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/calculator.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/calculator.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/calculator.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +135,7 @@
       <workItem from="1618231573996" duration="4544000" />
       <workItem from="1644008589386" duration="2077000" />
       <workItem from="1644046761757" duration="2420000" />
-      <workItem from="1644402610404" duration="688000" />
+      <workItem from="1644402610404" duration="3053000" />
     </task>
     <task id="LOCAL-00001" summary="v1.3.1&#10;- Added recognition of trigonometric functions (sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan). Refactored the code so ExpressionManipulation.GetExpressionInListForm(string) recognizes these functions and adds parentheses to the values in these functions.&#10;&#10;Ex. 5tan5x+1 =&gt; 5 * tan ( 5 * x ) + 1">
       <created>1618212036657</created>
