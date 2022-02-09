@@ -5,17 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2213f6de-dcbd-4e52-b799-694118d086fa" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/contentModel.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/riderModule.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.calculator/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/ref/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/ref/calculator.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/Expression.cs" beforeDir="false" afterPath="$PROJECT_DIR$/main/Expression.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/Variables.cs" beforeDir="false" afterPath="$PROJECT_DIR$/main/Variables.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/command/Commands.cs" beforeDir="false" afterPath="$PROJECT_DIR$/main/command/Commands.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.runtimeconfig.dev.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net5.0/calculator.runtimeconfig.dev.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.csprojAssemblyReference.cache" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/calculator.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net5.0/ref/calculator.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net5.0/ref/calculator.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/calculator.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/calculator.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/calculator.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/calculator.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,11 +60,11 @@
       <option value="$PROJECT_DIR$/tests/Test.cs" />
       <option value="$PROJECT_DIR$/tests/CalcTest.cs" />
       <option value="$PROJECT_DIR$/main/calc/Main.cs" />
-      <option value="$PROJECT_DIR$/changelog.txt" />
       <option value="$PROJECT_DIR$/main/Variables.cs" />
       <option value="$PROJECT_DIR$/main/Expression.cs" />
-      <option value="$PROJECT_DIR$/Program.cs" />
       <option value="$PROJECT_DIR$/main/command/Commands.cs" />
+      <option value="$PROJECT_DIR$/changelog.txt" />
+      <option value="$PROJECT_DIR$/Program.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1qsHj0wppLqZgrV5vVmiS0nxiHI" />
@@ -141,7 +153,10 @@
       <workItem from="1618134979463" duration="669000" />
       <workItem from="1618204273792" duration="9895000" />
       <workItem from="1618222188429" duration="1603000" />
-      <workItem from="1618231573996" duration="3856000" />
+      <workItem from="1618231573996" duration="4544000" />
+      <workItem from="1644008589386" duration="2077000" />
+      <workItem from="1644046761757" duration="2420000" />
+      <workItem from="1644402610404" duration="688000" />
     </task>
     <task id="LOCAL-00001" summary="v1.3.1&#10;- Added recognition of trigonometric functions (sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan). Refactored the code so ExpressionManipulation.GetExpressionInListForm(string) recognizes these functions and adds parentheses to the values in these functions.&#10;&#10;Ex. 5tan5x+1 =&gt; 5 * tan ( 5 * x ) + 1">
       <created>1618212036657</created>
@@ -150,7 +165,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618212036657</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="v1.4&#10;&#10; - Added support for trigonometric functions (sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan) and radicals (sqrt, cbrt, qtrt - which stands for square root, cube root, and quartic root(x^(1/4))). Additionally, added a new setting &quot;angle&quot; which changes the angle mode for the trigonometric functions.&#10; &#10;   The program can be set to a mode at launch using the param &quot;--a angleMode&quot; or &quot;--angleMode&quot; or it can be adjusted during runtime using the &quot;/angle angleMode&quot; command. Current valid angleMode values are :&#10;   &quot;deg&quot;, &quot;degree&quot;, &quot;degrees&quot;, &quot;rad&quot;, &quot;radian&quot;, &quot;radians&quot;.">
+      <created>1618235932503</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1618235932503</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,7 +195,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="v1.3.1&#10;- Added recognition of trigonometric functions (sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan). Refactored the code so ExpressionManipulation.GetExpressionInListForm(string) recognizes these functions and adds parentheses to the values in these functions.&#10;&#10;Ex. 5tan5x+1 =&gt; 5 * tan ( 5 * x ) + 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="v1.3.1&#10;- Added recognition of trigonometric functions (sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan). Refactored the code so ExpressionManipulation.GetExpressionInListForm(string) recognizes these functions and adds parentheses to the values in these functions.&#10;&#10;Ex. 5tan5x+1 =&gt; 5 * tan ( 5 * x ) + 1" />
+    <MESSAGE value="v1.4&#10;&#10; - Added support for trigonometric functions (sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan) and radicals (sqrt, cbrt, qtrt - which stands for square root, cube root, and quartic root(x^(1/4))). Additionally, added a new setting &quot;angle&quot; which changes the angle mode for the trigonometric functions.&#10; &#10;   The program can be set to a mode at launch using the param &quot;--a angleMode&quot; or &quot;--angleMode&quot; or it can be adjusted during runtime using the &quot;/angle angleMode&quot; command. Current valid angleMode values are :&#10;   &quot;deg&quot;, &quot;degree&quot;, &quot;degrees&quot;, &quot;rad&quot;, &quot;radian&quot;, &quot;radians&quot;." />
+    <option name="LAST_COMMIT_MESSAGE" value="v1.4&#10;&#10; - Added support for trigonometric functions (sin, cos, tan, csc, sec, cot, arcsin, arccos, arctan) and radicals (sqrt, cbrt, qtrt - which stands for square root, cube root, and quartic root(x^(1/4))). Additionally, added a new setting &quot;angle&quot; which changes the angle mode for the trigonometric functions.&#10; &#10;   The program can be set to a mode at launch using the param &quot;--a angleMode&quot; or &quot;--angleMode&quot; or it can be adjusted during runtime using the &quot;/angle angleMode&quot; command. Current valid angleMode values are :&#10;   &quot;deg&quot;, &quot;degree&quot;, &quot;degrees&quot;, &quot;rad&quot;, &quot;radian&quot;, &quot;radians&quot;." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

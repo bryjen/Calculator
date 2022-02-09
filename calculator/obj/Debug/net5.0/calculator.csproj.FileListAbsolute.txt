@@ -1,4 +1,3 @@
-C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.csprojAssemblyReference.cache
 C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.AssemblyInfoInputs.cache
 C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.AssemblyInfo.cs
@@ -19,3 +18,4 @@ C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator
 C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\ref\calculator.dll
 C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.pdb
 C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.genruntimeconfig.cache
+C:\Users\Game\Documents\GitHub\Calculator\calculator\obj\Debug\net5.0\calculator.csproj.AssemblyReference.cache
